@@ -101,6 +101,11 @@
 </template>
 
 <style scoped>
+img {
+    height: 100%;
+    margin-left: 50px;
+  
+}
 .content {
   background: #B84F4F;
   height: 100vh;
