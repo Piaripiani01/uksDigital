@@ -16,13 +16,12 @@
       <img src="@/assets/img/jam.png" alt="" width="200">
       <NuxtLink to="/Halkedua/" class="bg-body-secondary rounded-3">@masuk website</NuxtLink>
     </div>
-    <div class="footer">
+    <div class="position-relative">
       <img src="@/assets/img/footerhome.svg" alt="" class="img_footer">
-    </div>
-    <div class="fixed-bottom text-end">
-      <h2>SMKN4 Tasikmalaya</h2>
-      <P>JL.depok.sukamenak.purbaratu</P>
-      
+      <div class="position-absolute bottom-0 end-0 text-end">
+        <h4>SMKN4 Tasikmalaya</h4>
+        <h4 class="m-0">JL.depok.sukamenak.purbaratu</h4>
+      </div>
     </div>
   </div>
 </template>
@@ -43,6 +42,7 @@ p {
   font-style: normal;
   font-size: 30px;
 }
+
 h1 {
   color: white;
   font-family: "Irish Grover", system-ui;
@@ -50,6 +50,7 @@ h1 {
   font-style: normal;
   font-size: 40px;
 }
+
 h3 {
   color: #742626;
   font-family: "Irish Grover", system-ui;
@@ -57,23 +58,31 @@ h3 {
   font-style: normal;
   font-size: 30px;
 }
+
 .content {
   background: #F28787;
 }
+
+h4 {
+  color: #742626;
+  }
+
 .card {
   height: 30px;
   box-shadow: 1px 1px 10px #726a6a;
 }
+
 .card.bg-pengunjung {
   background-repeat: no-repeat;
   background-position: center center;
 
 }
-.text{
+
+.text {
   padding-left: 250px;
 }
 
-.img_footer{
+.img_footer {
   width: 100%;
 }
 </style>

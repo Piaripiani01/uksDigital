@@ -1,98 +1,104 @@
+<script setup>
+const supabase = useSupabaseClient()
+const form = ref({
+  id_siswa: "",
+  hari: "",
+  tanggal: "",
+  jam: "",
+  keluhan: "",
+  riwayat: "",
+  tindakan: "",
+  keterangan: "",
+})
+const students = ref([])
+
+const getSiswa = async () => {
+  const { data, error } = await supabase
+  .from('siswa')
+  .select('*')
+  if(data) students.value = data
+}
+
+async function tambahData() {
+  const { data, error } = await supabase
+    .from('pemeriksaan')
+    .insert([form.value])
+    .select()
+  if(data) navigateTo ('/pengunjung')
+}
+
+onMounted (() => {
+  getSiswa()
+})
+
+
+</script>
+
 <template>
   <div class="container-fluid content">
-    <div class="row">
+    <div class="row justify-content-center">
       <div class="col-lg-10">
         <h2 class="text-center my-4">ISI DAFTAR PEMANTAUAN KESEHATAN SISWA</h2>
-        <form>
+        <form @submit.prevent="tambahData">
           <div class="mb-3 row">
-            <label for="" class="col-sm-2 col-form-label">NAMA:</label>
+            <label for="" class="col-sm-2 col form-label">NAMA:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control ic rounded-5" id="">
+              <select v-model="form.id_siswa" class="form-control ic rounded-5 text-dark">
+                <option v-for="siswa in students" :key="siswa.id_siswa" :value="siswa.id_siswa">{{ siswa.nama }}</option>
+              </select>
             </div>
           </div>
+          
           <div class="mb-3 row">
-            <label for="" class="col-sm-2 col-form-label">KELAS:</label>
-              <div class="col-sm-10">
+            <label for="" class="col-sm-2 col form-label">HARI, TANGGAL, JAM:</label>
+            <div class="col-sm-10">
               <div class="row d-flex">
                 <div class="col-md-4">
-                <select class="form-control ic form-control-lg form-select rounded-5 mb-2">
-                  <option value="text">TINGKAT</option>
-                  <option value="X">X</option>
-                  <option value="XI">XI</option>
-                  <option value="XII">XII</option>
-                </select>
+                  <select v-model="form.hari" class="form-control ic form-control-lg form-select rounded-5 mb-2">
+                    <option value="">Hari</option>
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jum'at">Jum'at</option>
+                  </select>
                 </div>
-            <div class="col-md-4">
-                <select class="form-control ic form-control-lg form-select rounded-5 mb-2">
-                  <option value="">JURUSAN</option>
-                  <option value="PPLG">PPLG</option>
-                  <option value="TJKT">TJKT</option>
-                  <option value="TBSM">TBSM</option>
-                  <option value="DKV">DKV</option>
-                  <option value="TOI">TOI</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select class="form-control ic form-control-lg form-select rounded-5 mb-2">
-                  <option value="">KELAS</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="" class="col-sm-2 col-form-label">HARI, TANGGAL, JAM:</label>
-            <div class="col-sm-10">
-              <div class="row d-flex">
-              <div class="col-md-4">
-                <select class="form-control ic form-control-lg form-select rounded-5 mb-2">
-                  <option value="">Hari</option>
-                  <option value="Senin">Senin</option>
-                  <option value="Selasa">Selasa</option>
-                  <option value="Rabu">Rabu</option>
-                  <option value="Kamis">Kamis</option>
-                  <option value="Jum'at">Jum'at</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <input type="date" class="form-control ic rounded-5" id="">
-              </div>
-              <div class="col-md-4">
-                <input type="text" class="form-control ic rounded-5" id="">
+                <div class="col-md-4">
+                  <input v-model="form.tanggal" type="date" class="form-control ic rounded-5" id="">
+                </div>
+                <div class="col-md-4">
+                  <input v-model="form.jam" type="time" class="form-control ic rounded-5" id="">
                 </div>
               </div>
             </div>
-            </div>
-        <div class="mb-3 row">
-            <label for="" class="col-sm-2 com-lal-forbel">KELUHAN/GEJALA:</label>
+          </div>
+          <div class="mb-3 row">
+            <label for="" class="col-sm-2 col form-label">KELUHAN / GEJALA:</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control ic rounded-5" id="">
+              <input v-model="form.keluhan" type="text" class="form-control ic rounded-5" id="">
             </div>
-        </div>
-        </div>
-        <div class="mb-3 row">
-              <label for="" class="col-sm-2 col-form-label">RIWAYAT PENYAKIT:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control ic rounded-5" id="">
-              </div>
           </div>
           <div class="mb-3 row">
-              <label for="" class="col-sm-2 col-form-label">TINDAKAN/PENANGANAN:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control ic rounded-5" id="">
-              </div>
+            <label for="" class="col-sm-2 col form-label">RIWAYAT PENYAKIT:</label>
+            <div class="col-sm-10">
+              <input v-model="form.riwayat"type="text" class="form-control ic rounded-5" id="">
+            </div>
           </div>
           <div class="mb-3 row">
-              <label for="" class="col-sm-2 col-form-label">KETERANGAN:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control ic rounded-5" id="">
-              </div>
+            <label for="" class="col-sm-2 col form-label">TINDAKAN / PENANGANAN:</label>
+            <div class="col-sm-10">
+              <input v-model="form.tindakan" type="text" class="form-control ic rounded-5" id="">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <label for="" class="col-sm-2 col form-label">KETERANGAN:</label>
+            <div class="col-sm-10">
+              <input v-model="form.keterangan" type="text" class="form-control ic rounded-5" id="">
+            </div>
           </div>
           <div class="text-end">
-            <NuxtLink to="/pengunjung" type="submit" class=" btn btn-outline-danger center rounded-4 px-5 fw-bold">Kirim</NuxtLink>   
+            <button type="submit" class=" btn btn-outline-danger center rounded-4 px-5 fw-bold">Kirim
+            </button>
           </div>
         </form>
       </div>
@@ -102,23 +108,31 @@
 
 <style scoped>
 img {
-    height: 100%;
-    margin-left: 50px;
-  
+  height: 100%;
+  margin-left: 50px;
+
 }
+
 .content {
   background: #B84F4F;
   height: 100vh;
 }
-label, h2 {
+
+label,
+h2 {
   color: white;
   font-weight: 700;
 }
+
 .btn {
   background-color: hsl(0, 0%, 85%);
 }
 
-.ic{
+.ic {
   background-color: #C3A8A8;
+}
+
+.form-control {
+  color: white;
 }
 </style>

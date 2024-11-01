@@ -8,7 +8,7 @@
         <div class="my-3">
           <input type="search" class="form-control form-control-lg rounded-5" placeholder="Search...">
         </div>
-        <div class="my-3 text-muted">Menampilkan 1 dari 1</div>
+        <div class="my-3 text-light">Menampilkan 1 dari 1</div>
         <table class="table">
           <thead>
             <tr>
@@ -23,14 +23,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1.</td>
-              <td>PIA RIPIANI</td>
-              <td>XII PPLG 3</td>
-              <td>Kamis, 25 september 2024, 23.31.00</td>
-              <td>PUSING</td>
-              <td>-</td>
-              <td>TIDAK</td>
+            <tr v-for="(siswa, i) in siswa" :key="siswa.id">
+              <td>{{ i + 1 }}</td>
+              <td>{{ siswa.id_siswa.nama }}</td>
+              <td>{{ siswa.id_siswa.tingkat }} {{ siswa.id_siswa.jurusan }} {{ siswa.id_siswa.kelas }}</td>
+              <td>{{ siswa.hari }} {{ siswa.tanggal }} {{ siswa.jam }}</td>
+              <td>{{ siswa.keluhan }}</td>
+              <td>{{ siswa.tindakan }}</td>
+              <td>{{ siswa.keterangan }}</td>
               <td>-</td>
             </tr>
           </tbody>
@@ -43,6 +43,30 @@
     </div>
   </div>
 </template>
+
+<script setup>
+const supabase = useSupabaseClient()
+const siswa = ref([])
+
+const getPemeriksaan = async () => {
+  const { data, error } = await supabase.from('pemeriksaan')
+  .select(`*, id_siswa(nama, tingkat, jurusan, kelas)`)
+  if(data)siswa.value = data
+}
+
+// const visitorFiltered = computed(() => {
+//       return visitors.value.filter((b) => {
+//       return(
+//         b.nama?.toLowerCase().includes(keyword.value?.toLowerCase())
+//       )
+//     })
+// })
+
+onMounted(() =>{
+    getPemeriksaan()
+})
+</script>
+
 
 <style scoped>
 .container-fluid {

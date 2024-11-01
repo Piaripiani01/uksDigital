@@ -1,37 +1,41 @@
 <template>
   <div class="container-fluid p-0">
-      <div class="row justify-content-center py-5">
-          <div class="col-lg-5">
-            <nuxt-link to="/pengunjung/tambah" style="text-decoration: none;">
-                <div class="card bg-pengunjung rounded-5">
-                    <div class="card-body">
-                        <h3 class="text-center" pt-5 style="margin-top: 80px;">Daftar pemantauan kesehatan / CATATAN</h3>
-                    </div>
-                </div> 
-                </nuxt-link>
+    <div class="row justify-content-center py-5">
+      <div class="col-lg-5">
+        <nuxt-link to="/pengunjung/tambah" style="text-decoration: none;">
+          <div class="card bg-pengunjung rounded-5">
+            <div class="card-body">
+              <h3 class="text-center" pt-5 style="margin-top: 80px;">Daftar pemantauan kesehatan / CATATAN</h3>
+            </div>
           </div>
-
-          <div class="col-lg-5">
-                <div class="card bg-buku rounded-5">
-                    <div class="card-body">
-                        <h3 class="text-center" style="margin-top: 80px;">Obat obatan dan alat</h3>
-                    </div>
-                </div>
-          </div>
+        </nuxt-link>
       </div>
 
-      <div class="row justify-content-center gy-3 py-5">
-          
-          <div class="col-lg-5">
-              <nuxt-link to="/pengunjung" style="text-decoration: none;">
-                  <div class="card pengunjung rounded-5">
-                      <div class="card-body">
-                          <h1 class="text-center" style="margin-top: 80px;">Laporan</h1>
-                      </div>
-                  </div>
-              </nuxt-link>
+      <div class="col-lg-5">
+        <nuxt-link to="/pengunjung/obat">
+          <div class="card bg-buku rounded-5">
+            <div class="card-body">
+              <h3 class="text-center" style="margin-top: 80px;">Obat obatan dan alat</h3>
+            </div>
           </div>
+        </nuxt-link>
       </div>
+    </div>
+
+    <div class="row justify-content-center gy-3 py-5">
+      <div class="col-lg-5">
+        <nuxt-link to="/pengunjung" style="text-decoration: none;">
+          <div class="card pengunjung rounded-5">
+            <div class="card-body">
+              <h1 class="text-center" style="margin-top: 80px;">Laporan</h1>
+            </div>
+          </div>
+        </nuxt-link>
+      </div>
+      <div class="text-center">
+        <nuxt-link to="../" type="submit" class=" btn btn-light center rounded-4 px-5 fw-bold">back to home</nuxt-link>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -69,17 +73,18 @@
   color: white;
 
 }
+
 h2 {
   color: #742626;
   font-family: "Irish Grover", system-ui;
 }
 
 h3 {
-  color:#742626;
+  color: #742626;
 }
 
 h1 {
-  color:#742626;
+  color: #742626;
 }
 
 .row {

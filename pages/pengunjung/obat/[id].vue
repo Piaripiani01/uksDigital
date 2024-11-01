@@ -7,30 +7,32 @@
           <div class="mb-3 row">
               <label for="" class="col-sm-2 col-form-label">NAMA OBAT :</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control fw-bold" id="" placeholder="Betadin" disabled>
+                <p type="text" class="form-control" id="">{{ obat.nama }}</p>
               </div>
         </div>
         <div class="mb-3 row">
               <label for="" class="col-sm-2 col-form-label">MANFAAT :</label>
               <div class="col-sm-10">
-                <textarea class="form-control fw-bold" id="" placeholder="mencegah pertumbuhan dan membunuh kuman penyebab infeksi." disabled></textarea>
+                <p type="text" class="form-control" id="">{{ obat.deskripsi }}</p>
               </div>
           </div>
           <div class="mb-3 row">
               <label for="" class="col-sm-2 col-form-label">JENIS OBAT :</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control fw-bold" id="" placeholder="antiseptik" disabled>
+                <p type="text" class="form-control" id="">{{ obat.jenis_obat?.nama }}</p>
               </div>
           </div>
           <div class="mb-3 row">
               <label for="" class="col-sm-2 col-form-label">JUMLAH OBAT :</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control fw-bold" id="" placeholder="1" disabled>
+                <p type="text" class="form-control" id="">{{ obat.jumlah }}</p>
               </div>
           </div>
           <div class="text-end">
-            <button type="submit" class="btn btn-white btn-lg m-2 px-5 fw-bold">AMBIL</button> 
-            <button type="submit" class="btn btn-white btn-lg m-2 px-5 fw-bold">KEMBALI</button>         
+            <!-- <button type="submit" class="btn btn-white btn-lg m-2 px-5 fw-bold">AMBIL</button> 
+            <button type="submit" class="btn btn-white btn-lg m-2 px-5 fw-bold">KEMBALI</button> -->
+            <NuxtLink to="/utama" class="btn btn-white btn-lg m-2 px-5 fw-bold">kembali</NuxtLink>
+            <input type="button" class="btn btn-white btn-lg m-2 px-5 fw-bold" @click="kurangiObat" value="Ambil">
           </div>
         </form>
       </div>
@@ -40,7 +42,25 @@
     </div>
   </div>
 </template>
+<script setup>
+const supabase = useSupabaseClient()
+const route = useRoute()
+const obat = ref([])
 
+async function getDataObat() {
+  const {data} = await supabase.from('obat').select(`*, jenis_obat(*)`).eq('id', route.params.id)
+  .maybeSingle()
+  if(data) obat.value = data
+}
+
+async function kurangiObat() {
+  obat.value.jumlah -= 1
+}
+
+onMounted(() => {
+  getDataObat()
+})
+</script>
 <style scoped>
 img {
     height: 100%;
