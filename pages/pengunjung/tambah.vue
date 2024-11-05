@@ -1,7 +1,7 @@
 <script setup>
 const supabase = useSupabaseClient()
 const form = ref({
-  id_siswa: "",
+  nama: "",
   hari: "",
   tanggal: "",
   jam: "",
@@ -10,13 +10,22 @@ const form = ref({
   tindakan: "",
   keterangan: "",
 })
+const kelas = ref({
+  tingkat: '',
+  jurusan: '',
+  kelas: ''
+})
 const students = ref([])
 
 const getSiswa = async () => {
   const { data, error } = await supabase
   .from('siswa')
   .select('*')
-  if(data) students.value = data
+  .eq('tingkat', kelas.value.tingkat)
+  .eq('jurusan', kelas.value.jurusan)
+  .eq('kelas', kelas.value.kelas)
+  if (error) throw error
+  if (data) students.value = data
 }
 
 async function tambahData() {
@@ -27,11 +36,11 @@ async function tambahData() {
   if(data) navigateTo ('/pengunjung')
 }
 
-onMounted (() => {
-  getSiswa()
+watch(kelas.value, () => {
+  if (kelas.value.tingkat && kelas.value.jurusan && kelas.value.kelas) {
+    getSiswa()
+  }
 })
-
-
 </script>
 
 <template>
@@ -41,9 +50,44 @@ onMounted (() => {
         <h2 class="text-center my-4">ISI DAFTAR PEMANTAUAN KESEHATAN SISWA</h2>
         <form @submit.prevent="tambahData">
           <div class="mb-3 row">
-            <label for="" class="col-sm-2 col form-label">NAMA:</label>
+            <label for="" class="col-sm-2 col form-label">TINGKAT, JURUSAN, KELAS:</label>
             <div class="col-sm-10">
-              <select v-model="form.id_siswa" class="form-control ic rounded-5 text-dark">
+              <div class="row d-flex">
+                <div class="col-md-4">
+                  <select v-model="kelas.tingkat" class="form-control ic form-control-lg form-select rounded-5 mb-2">
+                    <option disabled value="">Tingkat</option>
+                    <option>X</option>
+                    <option>XI</option>
+                    <option>XII</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select v-model="kelas.jurusan" class="form-control ic form-control-lg form-select rounded-5 mb-2">
+                    <option disabled value="">Jurusan</option>
+                    <option>PPLG</option>
+                    <option>TJKT</option>
+                    <option>TSM</option>
+                    <option>DKV</option>
+                    <option>TOI</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <select v-model="kelas.kelas" class="form-control ic form-control-lg form-select rounded-5 mb-2">
+                    <option disabled value="">Kelas</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3 row">
+            <label for="" class="col-sm-2 col form">NAMA:</label>
+            <div class="col-sm-10">
+              <select v-model="form.nama" :disabled="!kelas.tingkat || !kelas.jurusan || !kelas.kelas" class="form-control ic form-select rounded-5 text-dark">
                 <option v-for="siswa in students" :key="siswa.id_siswa" :value="siswa.id_siswa">{{ siswa.nama }}</option>
               </select>
             </div>
@@ -55,7 +99,7 @@ onMounted (() => {
               <div class="row d-flex">
                 <div class="col-md-4">
                   <select v-model="form.hari" class="form-control ic form-control-lg form-select rounded-5 mb-2">
-                    <option value="">Hari</option>
+                    <option disabled value="">Hari</option>
                     <option value="Senin">Senin</option>
                     <option value="Selasa">Selasa</option>
                     <option value="Rabu">Rabu</option>

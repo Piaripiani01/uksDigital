@@ -25,8 +25,8 @@
           <div class="text-end">
           </div>
           <div class="justify-content-end d-flex">
-            <NuxtLink to="/utama" class="btn btn-white btn-lg m-2 px-5 fw-bold">kembali</NuxtLink>
-            <input type="button" class="btn btn-white btn-lg m-2 px-5 fw-bold" @click="kurangiObat" value="Ambil">
+            <NuxtLink to="/pengunjung/obat" class="btn btn-white btn-lg m-2 px-5 fw-bold">kembali</NuxtLink>
+            <input type="button" class="btn btn-white btn-lg m-2 px-5 fw-bold" @click="kurangiAlat" value="Ambil">
           </div>  
         </form>
       </div>
@@ -45,8 +45,8 @@ async function getDataAlat() {
   if(data) alat.value = data
 }
 
-async function kurangiObat() {
-  obat.value.jumlah -= 1
+async function kurangiAlat() {
+  alat.value.jumlah -= 1
 }
 
 onMounted(() => {

@@ -23,14 +23,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(siswa, i) in siswa" :key="siswa.id">
+            <tr v-for="(periksa, i) in siswa" :key="siswa.id">
               <td>{{ i + 1 }}</td>
-              <td>{{ siswa.id_siswa.nama }}</td>
-              <td>{{ siswa.id_siswa.tingkat }} {{ siswa.id_siswa.jurusan }} {{ siswa.id_siswa.kelas }}</td>
-              <td>{{ siswa.hari }} {{ siswa.tanggal }} {{ siswa.jam }}</td>
-              <td>{{ siswa.keluhan }}</td>
-              <td>{{ siswa.tindakan }}</td>
-              <td>{{ siswa.keterangan }}</td>
+              <td>{{ periksa.siswa.nama }}</td>
+              <td>{{ periksa.siswa.tingkat }} {{ periksa.siswa.jurusan }} {{ periksa.siswa.kelas }}</td>
+              <td>{{ periksa.hari }} {{ periksa.tanggal }} {{ periksa.jam }}</td>
+              <td>{{ periksa.keluhan }}</td>
+              <td>{{ periksa.tindakan }}</td>
+              <td>{{ periksa.keterangan }}</td>
               <td>-</td>
             </tr>
           </tbody>
@@ -50,7 +50,7 @@ const siswa = ref([])
 
 const getPemeriksaan = async () => {
   const { data, error } = await supabase.from('pemeriksaan')
-  .select(`*, id_siswa(nama, tingkat, jurusan, kelas)`)
+  .select(`*,siswa( * )`)
   if(data)siswa.value = data
 }
 

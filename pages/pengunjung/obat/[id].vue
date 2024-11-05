@@ -31,7 +31,7 @@
           <div class="text-end">
             <!-- <button type="submit" class="btn btn-white btn-lg m-2 px-5 fw-bold">AMBIL</button> 
             <button type="submit" class="btn btn-white btn-lg m-2 px-5 fw-bold">KEMBALI</button> -->
-            <NuxtLink to="/utama" class="btn btn-white btn-lg m-2 px-5 fw-bold">kembali</NuxtLink>
+            <NuxtLink to="/pengunjung/obat" class="btn btn-white btn-lg m-2 px-5 fw-bold">kembali</NuxtLink>
             <input type="button" class="btn btn-white btn-lg m-2 px-5 fw-bold" @click="kurangiObat" value="Ambil">
           </div>
         </form>
