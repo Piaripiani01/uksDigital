@@ -11,12 +11,24 @@
           </div>
         </div>
       </div>
-      
+
+      <div class="row my-3 d-flex">
+        <div class="col">
+          <input v-model="keywordObat" @input="getObat" type="search" class="col-lg-5 form-control form-control-lg rounded-5"
+            placeholder="search obat..." style="background-color: #D9D9D9;">
+        </div>
+        <div class="col">
+          <input v-model="keywordAlat" @input="getAlat" type="search" class="col-lg-5 form-control form-control-lg rounded-5"
+            placeholder="search alat..." style="background-color: #D9D9D9;">
+        </div>
+      </div>
+
+
       <div class="row my-5 bg-pink justify-content-center rounded-4">
         <div class="col">
           <div class="row">
             <div class="col text-center my-4">
-              <NuxtLink class="btn btn-light btn-lita">OBAT</NuxtLink> 
+              <NuxtLink class="btn btn-light btn-lita">OBAT</NuxtLink>
             </div>
           </div>
           <div class="row">
@@ -44,28 +56,33 @@
 
 <script setup>
 const supabase = useSupabaseClient()
-const keyword = ref('')
+const keywordObat = ref('')
+const keywordAlat = ref('')
 const alats = ref([])
 const obats = ref([])
+const visitors = ref([])
 
 const getAlat = async () => {
   const { data, error } = await supabase.from('data_alat').select()
-  if(data) alats.value = data
+    .ilike('nama', `%${keywordAlat.value}%`)
+  if (data) alats.value = data
 }
 const getObat = async () => {
   const { data, error } = await supabase.from('obat').select()
-  if(data) obats.value = data
+    .ilike('nama', `%${keywordObat.value}%`)
+  if (data) obats.value = data
 }
 
-// const visitorFiltered = computed(() => {
-//   return visitors.value.filter((b) => {
-//       return (
-//           b.nama?.toLowerCase().includes(keyword.value?.toLowerCase())
-//       )
-//   })
-// })
 
-onMounted(() =>{
+const visitorFiltered = computed(() => {
+  return visitors.value.filter((b) => {
+    return (
+      b.nama?.toLowerCase().includes(keyword.value?.toLowerCase())
+    )
+  })
+})
+
+onMounted(() => {
   getAlat()
   getObat()
 })
@@ -77,37 +94,41 @@ onMounted(() =>{
   background-color: #B84F4F;
 }
 
-h1{
+h1 {
   color: #742626;
 }
 
 .bg-pink {
   background-color: #F9A6A6;
 }
+
 .bg-light {
   background-color: #d9d9d9 !important;
 }
 
-.btn-lita{
+.btn-lita {
   width: 20rem;
 }
 
-.contect{
+.contect {
   background: #F9A6A6;
 }
+
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&display=swap');
+
 .container-fluid {
   /* background: url("~/assets/img/OBAT-OBATAN 1.png"); */
   background-size: cover;
   width: 100%;
 }
+
 td {
   color: white;
   border: 1px solid #fff;
   background-color: rgba(255, 255, 255, 0);
 }
 
-h2{
+h2 {
   color: white;
   font-family: "Irish Grover", system-ui;
 }
@@ -115,8 +136,4 @@ h2{
 .bi-caret-left-fill {
   margin-left: 20px;
 }
-
-</style> 
-
-          
-      
+</style>

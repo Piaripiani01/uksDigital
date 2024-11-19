@@ -9,11 +9,17 @@
               <div class="col-sm-10">
                 <p type="text" class="form-control" id="">{{ obat.nama }}</p>
               </div>
-        </div>
-        <div class="mb-3 row">
+          </div>
+          <!-- <div class="mb-3 row">
               <label for="" class="col-sm-2 col-form-label">MANFAAT :</label>
               <div class="col-sm-10">
-                <p type="text" class="form-control" id="">{{ obat.deskripsi }}</p>
+                <p type="text" class="form-control" id="">{{ obat.jenis_obat?.nama }}</p>
+              </div>
+          </div> -->
+          <div class="mb-3 row">
+              <label for="" class="col-sm-2 col-form-label">MANFAAT :</label>
+              <div class="col-sm-10">
+                <p type="text" class="form-control" id="">{{ obat.Manfaat}}</p>
               </div>
           </div>
           <div class="mb-3 row">

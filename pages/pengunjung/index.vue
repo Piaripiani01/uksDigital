@@ -5,8 +5,14 @@
         <div class="row d-flex justify-content-center">
           <h2 class="Titl text-center my-4 rounded-5">LAPORAN</h2>
         </div>
-        <div class="my-3">
+        <!-- <div class="my-3">
           <input type="search" class="form-control form-control-lg rounded-5" placeholder="Search...">
+        </div> -->
+        <div class="row my-3 d-flex">
+        <div class="col">
+          <input v-model="keywordLaporan" @input="getLaporan" type="search" class="col-lg-5 form-control form-control-lg rounded-5"
+            placeholder="search..." style="background-color: #D9D9D9;">
+        </div>
         </div>
         <div class="my-3 text-light">Menampilkan 1 dari 1</div>
         <table class="table">
@@ -54,13 +60,13 @@ const getPemeriksaan = async () => {
   if(data)siswa.value = data
 }
 
-// const visitorFiltered = computed(() => {
-//       return visitors.value.filter((b) => {
-//       return(
-//         b.nama?.toLowerCase().includes(keyword.value?.toLowerCase())
-//       )
-//     })
-// })
+const visitorFiltered = computed(() => {
+      return visitors.value.filter((b) => {
+      return(
+        b.nama?.toLowerCase().includes(keyword.value?.toLowerCase())
+      )
+    })
+})
 
 onMounted(() =>{
     getPemeriksaan()
@@ -82,6 +88,76 @@ h2{
   color: #742626;
   background-color: #D9D9D9;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .Titl {
   width: 20rem;
